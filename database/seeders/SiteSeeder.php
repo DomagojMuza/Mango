@@ -15,7 +15,7 @@ class SiteSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('site')->insert([
+        DB::table('sites')->insert([
             'name' => Str::random(10),
         ]);
     }

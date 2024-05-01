@@ -7,13 +7,15 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class SummarySeeder extends Seeder
+class CurrencySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        //
+        DB::table('currencies')->insert([
+            'code' => 'EUR',
+        ]);
     }
 }

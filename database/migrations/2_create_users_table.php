@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('site_id')->constrained();
+
+            $table->unsignedBigInteger('site_id');
+            $table->foreign('site_id')->references('id')->on('sites');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Pricelist;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,5 +25,10 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(UserRoleSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(ProductItemSeeder::class);
+        $this->call(CurrencySeeder::class);
+        $this->call(PartnerSeeder::class);
+        $this->call(PricelistSeeder::class);
     }
 }

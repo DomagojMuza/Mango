@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('site_domain', function (Blueprint $table) {
+        Schema::create('site_domains', function (Blueprint $table) {
             $table->id();
             $table->foreignId('site_id')->constrained();
             $table->string('domain');
