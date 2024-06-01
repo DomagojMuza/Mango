@@ -2,10 +2,19 @@
 
 namespace App\Http;
 
+use App\Http\Requests\MangoRequest;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+
+    public function handle($request)
+    {
+        return parent::handle(
+            MangoRequest::createFrom($request)
+        );
+    }
+    
     /**
      * The application's global HTTP middleware stack.
      *

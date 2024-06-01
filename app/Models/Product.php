@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'product';
+    protected $table = 'products';
 
     protected $primaryKey = 'id';
 
@@ -21,7 +22,7 @@ class Product extends Model
     {
         if (! $this?->slug || $this->isDirty('slug')) 
         {
-            $this->slug = slugify($this->slug ?? $this->name);
+            $this->slug = Str::slug($this->slug ?? $this->name);
 
             $similar = Product::where('slug', 'like', $this->slug . '%' )
                 ->orderBy('id', 'DESC')->get()->first();

@@ -1,5 +1,7 @@
 <?php
 
+use Mango\Services\AuthorizationService;
+use Mango\Services\CrudService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    dump(csrf_token());
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    $product = \App\Models\Product::where('id', 30)->first();
-    dump($product->slug);
 
-    $product->slug = 'Test asda 4';
+Route::any('/login', [AuthorizationService::class, 'doLogin'])->name('login');
+Route::any('/logout', [AuthorizationService::class, 'doLogout'])->name('logout');
 
-    $product->save();
-
-    dump($product->slug);
-
-});
+Route::any('/crud/{service}/{operation}', [CrudService::class, 'handle'])->where(['service' => '[A-Za-z]+', 'operation' => '[A-Za-z]+']);
+Route::any('/crud', [CrudService::class, 'handle'])->middleware('auth');
