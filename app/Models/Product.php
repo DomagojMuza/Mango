@@ -6,10 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Product extends Model
+class Product extends MangoModel
 {
-    use HasFactory;
-
     protected $table = 'products';
 
     protected $primaryKey = 'id';

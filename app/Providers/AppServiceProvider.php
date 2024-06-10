@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+
+use App\Helpers\MangoApp;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,7 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
         Schema::defaultStringLength(191);
+
+        $this->app->bind('MangoApp',function(){
+            return new MangoApp();
+       });
     }
 }

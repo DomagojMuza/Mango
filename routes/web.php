@@ -20,6 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    $user = Auth::user();
+    MangoApp::setSiteFromUser($user);
+
+    dump(MangoApp::getSite());
+});
+
 
 Route::any('/login', [AuthorizationService::class, 'doLogin'])->name('login');
 Route::any('/logout', [AuthorizationService::class, 'doLogout'])->name('logout');

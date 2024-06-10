@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PricelistItem extends MangoModel
+class Site extends MangoModel
 {
-
+    protected $table = 'sites';
 }
