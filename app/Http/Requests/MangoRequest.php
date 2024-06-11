@@ -19,7 +19,7 @@ class MangoRequest extends LaravelRequest
         return $service ? ucfirst($service) . 'Service' : null;
     }
 
-    public function getOperation()
+    public function getFunction()
     {
         return $this->segment(3);
     }

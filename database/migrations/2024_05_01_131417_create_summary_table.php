@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('summaries', function (Blueprint $table) {
             $table->id();
             $table->integer('parent_id');
+            $table->integer('site_id');
             $table->enum('parent_type', ['product', 'product_item']);
             $table->enum('type', ['title', 'small_description', 'long_description', 'seo_title', 'seo_description']);
             $table->string('language');
