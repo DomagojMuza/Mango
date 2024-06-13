@@ -1,7 +1,7 @@
 SLUGIFY - https://gist.github.com/lucasmezencio/15d23207834a3eade40c5aeec7c1fc5e
 
 + Napraviti service provider koji se može pozvati gdje god i set-a site
-- Product create servis.
++ Product create servis.
 -    Product slug create, update
 - Product update (poziva product slug update)
 - Image servis - create, delete, update
