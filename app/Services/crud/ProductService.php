@@ -23,6 +23,12 @@ class ProductService
         return $this->productRepository->create($data);
     }
 
+    public function update($data)
+    {
+        $productsToUpdate = $data['data'] ?? [];
+        return $this->productRepository->update($productsToUpdate);
+    }
+
     public function find(array $data)
     {
         $site_id = MangoAppFacade::getSiteId();

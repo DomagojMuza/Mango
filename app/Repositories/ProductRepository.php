@@ -6,6 +6,7 @@ namespace Mango\Repositories;
 use App\Models\Product;
 use App\Repositories\Settings\ProductSettings;
 use Mango\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Validator;
 
 class ProductRepository extends BaseRepository
 {
@@ -24,7 +25,7 @@ class ProductRepository extends BaseRepository
 
     public function findById(int|array $id)
     {
-        return Product::find($id);
+        return Product::with('slug')->find($id);
     }
 
     public function fetch(array $data)
@@ -36,14 +37,53 @@ class ProductRepository extends BaseRepository
     public function find(array $data)
     {
         $productSettings = new ProductSettings($data);
-        $ss = $productSettings->getSettings();
+        $ss = $productSettings->getSettings(); 
 
-        
+        if ($ss->productIds ?? null) return $this->findById($ss->productIds);
     }
 
     public function load()
     {
         if ( ! $this->foundIds) return abort(400);
+    }
+
+    public function update(array $products)
+    {
+        if (! $products) abort(400, 'No products to update');
+
+        $productIds = array_column($products,'id');
+
+        $foundProducts = $this->find(['productIds' => $productIds]);
+
+        \DB::beginTransaction();
+
+        try {
+            foreach ($foundProducts as $product) 
+            {
+                $newData = current(array_filter($products, function($_product) use($product) { return $product->id == $_product['id']; }));
+                $updateSlug = $newData['updateSlug'] ?? false;
+
+                $validator = Validator::make($newData, 
+                    [
+                        'name' => 'nullable|string'
+                    ]
+                );
+
+                if ($validator->fails()) throw new \Exception('Data types mismatch');
+                
+                $newData = $validator->validated();
+               
+                $product->fill($newData);
+                $product->save();
+            }
+
+            \DB::commit();
+        } catch (\Exception $e) 
+        {
+            \DB::rollback();
+            return abort(500, $e->getMessage());
+        }
+
     }
     
 }

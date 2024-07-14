@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Site;
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class MangoApp 
 {
@@ -25,7 +26,7 @@ class MangoApp
         return $this->site->id;
     }
 
-    public function setSiteFromUser(User $user)
+    public function setSiteFromUser(User|Authenticatable $user)
     {
         $siteId = $user->site_id;
         $site = Site::find($siteId);
