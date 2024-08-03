@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Summary extends MangoModel
 {
     use HasFactory;
+    protected $guarded = ['id'];
 }

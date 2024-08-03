@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class MangoApp 
 {
-    private $site;
+    private Site $site;
 
     public function __construct()
     {
@@ -19,6 +19,11 @@ class MangoApp
     public function getSite()
     {
         return $this->site;
+    }
+
+    public function getSiteLanguages()
+    {
+        return explode(',', $this->site->allowed_languages);
     }
     
     public function getSiteId()

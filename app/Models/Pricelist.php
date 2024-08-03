@@ -7,6 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pricelist extends MangoModel
 {
-
-    
+    protected $guarded = ['id'];
 }
