@@ -17,10 +17,18 @@ class ProductRepository extends BaseRepository
         return Product::create($data);
     }
 
-    public function delete(int|array $id)
+    public function delete(int $id)
     {
-        if ( ! is_array($id)) $id = [$id];
-        return Product::whereIn('id', $id);
+        try 
+        {
+            $product = Product::find($id);
+            if ( ! $product) throw new \Exception('Product not found');
+            return $product->delete();
+        } 
+        catch (\Exception $e) 
+        {
+            return abort(500, $e->getMessage());
+        }
     }
 
     public function findById(int|array $id)
@@ -47,43 +55,35 @@ class ProductRepository extends BaseRepository
         if ( ! $this->foundIds) return abort(400);
     }
 
-    public function update(array $products)
+    public function update(array $data, int $id)
     {
-        if (! $products) abort(400, 'No products to update');
+    
+        try 
+        {
+            $product = Product::where('id', $id)->where('site_id', $data['site_id'])->first();
 
-        $productIds = array_column($products,'id');
+            if (! $product) throw new \Exception('Product not found');
 
-        $foundProducts = $this->find(['productIds' => $productIds]);
+            $validator = Validator::make($data, 
+                [
+                    'name' => 'nullable|string'
+                ]
+            );
 
-        \DB::beginTransaction();
+            if ($validator->fails()) throw new \Exception('Data types mismatch');
+            
+            $newData = $validator->validated();
+            
+            $product->update($newData);
 
-        try {
-            foreach ($foundProducts as $product) 
-            {
-                $newData = current(array_filter($products, function($_product) use($product) { return $product->id == $_product['id']; }));
-                $updateSlug = $newData['updateSlug'] ?? false;
-
-                $validator = Validator::make($newData, 
-                    [
-                        'name' => 'nullable|string'
-                    ]
-                );
-
-                if ($validator->fails()) throw new \Exception('Data types mismatch');
-                
-                $newData = $validator->validated();
-               
-                $product->fill($newData);
-                $product->save();
-            }
-
-            \DB::commit();
-        } catch (\Exception $e) 
+        } 
+        catch (\Exception $e) 
         {
             \DB::rollback();
             return abort(500, $e->getMessage());
         }
 
+        return $product;
     }
     
 }

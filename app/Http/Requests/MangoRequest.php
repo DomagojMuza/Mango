@@ -23,5 +23,9 @@ class MangoRequest extends LaravelRequest
     {
         return $this->segment(3);
     }
+    public function getId()
+    {
+        return $this->segment(4);
+    }
 
 }

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends MangoModel
 {
-
+    protected $guarded = ['id'];
 }

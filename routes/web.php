@@ -31,4 +31,4 @@ Route::get('/test', function () {
 Route::any('/login', [AuthorizationService::class, 'doLogin'])->name('login');
 Route::any('/logout', [AuthorizationService::class, 'doLogout'])->name('logout');
 
-Route::any('/crud/{service}/{function}', [CrudService::class, 'handle'])->where(['service' => '[A-Za-z]+', 'function' => '[A-Za-z]+']);
+Route::any('/crud/{service}/{function}/{id?}', [CrudService::class, 'handle'])->where(['service' => '[A-Za-z]+', 'function' => '[A-Za-z]+', 'id' => '[0-9]+']);

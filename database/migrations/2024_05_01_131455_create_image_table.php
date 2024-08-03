@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->integer('parent_id');
-            $table->enum('parent_type', ['prudct','product_item']);
+            $table->string('path');
+            $table->enum('parent_type', ['product','product_item']);
             $table->timestamps();
         });
     }

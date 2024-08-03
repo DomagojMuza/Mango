@@ -16,10 +16,12 @@ class ProductSlugService
 
     public function create(array $data)
     {
-        $site_id = MangoAppFacade::getSiteId();
-        $data['site_id'] = $site_id;
-
         return $this->productSlugRepository->create($data);
+    }
+
+    public function update($data)
+    {
+        return $this->productSlugRepository->update($data);
     }
 
     public function find(array $data)

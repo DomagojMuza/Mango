@@ -12,19 +12,22 @@ class CrudService
     public function handle(Request $request)
     {
         $user = Auth::user();
-
         MangoAppFacade::setSiteFromUser($user);
 
         $serviceName = $request->getService();
         $type = $request->getEndpoint();
         $method = $request->getFunction();
+        $id = $request->getId();
 
         $className = $this->getServicePath($type, $serviceName);
         $service = $this->getServiceClass($className);
 
         $data = $request->all();
 
-        return $service->$method($data);
+        $site_id = MangoAppFacade::getSiteId();
+        $data['site_id'] = $site_id;
+
+        return $service->$method($data, $id);
     }
 
 

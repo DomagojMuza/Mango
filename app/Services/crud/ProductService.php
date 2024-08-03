@@ -3,6 +3,7 @@
 namespace Mango\Services\Crud;
 
 use App\Helpers\MangoAppFacade;
+use App\Models\Product;
 use Mango\Repositories\ProductRepository;
 use Mango\Repositories\ProductSlugRepository;
 
@@ -17,23 +18,16 @@ class ProductService
 
     public function create(array $data)
     {
-        $site_id = MangoAppFacade::getSiteId();
-        $data['site_id'] = $site_id;
-
         return $this->productRepository->create($data);
     }
 
-    public function update($data)
+    public function update($data, $id)
     {
-        $productsToUpdate = $data['data'] ?? [];
-        return $this->productRepository->update($productsToUpdate);
+        return $this->productRepository->update($data, $id);
     }
 
     public function find(array $data)
     {
-        $site_id = MangoAppFacade::getSiteId();
-        $data['site_id'] = $site_id;
-
         return $this->productRepository->fetch($data);
     }
 }
