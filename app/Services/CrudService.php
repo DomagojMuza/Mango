@@ -21,7 +21,7 @@ class CrudService
 
         $className = $this->getServicePath($type, $serviceName);
         $service = $this->getServiceClass($className);
-
+        
         $data = $request->all();
 
         $site_id = MangoAppFacade::getSiteId();

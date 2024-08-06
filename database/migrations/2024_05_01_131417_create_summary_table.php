@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('parent_type', ['product', 'product_item']);
             $table->enum('type', ['title', 'small_description', 'long_description', 'seo_title', 'seo_description']);
             $table->string('language');
-            $table->string('text');
+            $table->string('text')->nullable();
             $table->timestamps();
         });
     }

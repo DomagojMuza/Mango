@@ -5,4 +5,8 @@ SLUGIFY - https://gist.github.com/lucasmezencio/15d23207834a3eade40c5aeec7c1fc5e
 +    Product slug create, update
 + Product update
 + Image servis - create, delete (http://mango.local/storage/uploads/product/1/UK4aDPSSpB21b1V62rjN6XLwaTwTz0qZ7pKVdwqs.jpg)
-- Summary servis - create, delete, update
++ Summary servis - create, delete, update
+
+- Summary validator
+- Amenitiy
+
