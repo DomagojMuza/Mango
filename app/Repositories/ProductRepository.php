@@ -12,6 +12,7 @@ class ProductRepository extends BaseRepository
 {
 
     private $foundIds;
+    private $ss;
     public function create(array $data)
     {
         return Product::create($data);
@@ -31,10 +32,6 @@ class ProductRepository extends BaseRepository
         }
     }
 
-    public function findById(int|array $id)
-    {
-        return Product::with('slug')->find($id);
-    }
 
     public function fetch(array $data)
     {
@@ -45,14 +42,21 @@ class ProductRepository extends BaseRepository
     public function find(array $data)
     {
         $productSettings = new ProductSettings($data);
-        $ss = $productSettings->getSettings(); 
+        $this->ss = $productSettings->getSettings(); 
 
-        if ($ss->productIds ?? null) return $this->findById($ss->productIds);
+
+        if ($this->ss->productIds ?? null) 
+        {
+            $this->foundIds = $this->ss->productIds;
+            return;
+        }
     }
 
     public function load()
     {
         if ( ! $this->foundIds) return abort(400);
+
+        return dd(Product::with(['slug', 'summary', 'images'])->where('site_id', $this->ss->site_id)->whereIn('id', $this->foundIds)->get());
     }
 
     public function update(array $data, int $id)

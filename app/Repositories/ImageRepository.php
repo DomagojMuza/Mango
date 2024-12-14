@@ -18,7 +18,7 @@ class ImageRepository extends BaseRepository
 
             $validator = Validator::make($data, 
                 [
-                    'image' => 'required|mimes:jpg,png|max:2048',
+                    'image' => 'required|mimes:jpg,png|max:5048',
                     'parent_type' => [
                         'required',
                         Rule::in(['product', 'product_item']),
@@ -38,6 +38,7 @@ class ImageRepository extends BaseRepository
             return $image;
 
         } catch (\Exception $e) {
+            info($e);
             return abort(500, $e->getMessage());
         }
     }

@@ -23,6 +23,16 @@ class Product extends MangoModel
         return $this->hasOne(ProductSlug::class, 'product_id', 'id')->where('site_id', MangoAppFacade::getSiteId());
     }
 
+    public function summary()
+    {
+        return $this->hasMany(Summary::class, 'parent_id', 'id')->where('parent_type', 'product')->where('site_id', MangoAppFacade::getSiteId());
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'parent_id', 'id')->where('parent_type', 'product');
+    }
+
 
 
 }

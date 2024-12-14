@@ -10,3 +10,10 @@ SLUGIFY - https://gist.github.com/lucasmezencio/15d23207834a3eade40c5aeec7c1fc5e
 - Summary validator
 - Amenitiy
 
+
+
+
+
+
+NOTE FOR LATER
+1. Kada se prebacuje product/item group/type treba proci kroz amenitije i obrisati one koji nisu zajednici

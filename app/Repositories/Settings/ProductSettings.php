@@ -17,7 +17,7 @@ class ProductSettings
 
         $validator = Validator::make($data, 
             [
-                'site_id' => 'nullable|integer',
+                'site_id' => 'integer',
                 'productIds' => 'nullable|array',
                 'productIds.*' => 'nullable|integer'
             ]
